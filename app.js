@@ -11,10 +11,6 @@ app.use(express.json());
 
 const newsDetails = newsJson;
 
-// parse requests of content-type - application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: true }));
-// parse requests of content-type - application/json
-// app.use(bodyParser.json({ type: 'application/json' }));
 
 app.get('/index.html', function (req, res) {
     res.sendFile(__dirname + "/" + "index.html");
@@ -22,24 +18,23 @@ app.get('/index.html', function (req, res) {
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/" + "index.html");
-    // res.send('GET API Call. Hello World');
 });
 
 app.get('/news', (req, res) => {
   res.send(newsDetails);
 })
-app.post('/news/post/:id', (req, res) => {
+app.post('/news/source/:id', (req, res) => {
   const sources = newsDetails[0].sources;
   const singleNews = sources.find(c => c.id === req.params.id)
   res.send(JSON.stringify(singleNews));
 })
-app.put('/news/put/:id', (req, res)=>{
+app.put('/news/source/:id', (req, res)=>{
   const sources = newsDetails[0].sources;
   const singleNews = sources.find(c => c.id === req.params.id);
 
   res.end(JSON.stringify(singleNews));
 })
-app.delete('/news/delete/:id', (req, res)=>{
+app.delete('/news/source/:id', (req, res)=>{
   const sources = newsDetails[0].sources;
   const singleNews = sources.find(c => c.id === req.params.id)
   const indexVal = sources.indexOf(singleNews)
