@@ -31,8 +31,13 @@ router.post("/:id", (req, res, next) => {
 router.put("/:id", (req, res, next) => {
   let sources = newsDetails[0].sources;
   const singleNews = sources.find(c => c.id === req.params.id);
-  singleNews.id = req.body.id;
-  singleNews.name = req.body.name;
+
+  if (!req.body.name || !req.body.id) {
+    console.log("Nothing");
+  } else {
+    singleNews.id = req.body.id;
+    singleNews.name = req.body.name;
+  }
 
   res.status(200).json({
     massage: "Handling Put Request",
