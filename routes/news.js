@@ -7,6 +7,7 @@ const newsJson = eval(fs.readFileSync("newsJson.js") + "");
 const newsDetails = newsJson;
 
 router.get("/", (req, res, next) => {
+  logger.info(req.originalUrl);
   res.status(200).json({
     massage: "Handling Get Request",
     newsJson: newsJson
@@ -14,6 +15,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/:id", (req, res, next) => {
+  logger.info(req.originalUrl);
   const sources = newsDetails[0].sources;
   const singleNews = sources.find(c => c.id === req.params.id);
 
@@ -30,6 +32,7 @@ router.post("/:id", (req, res, next) => {
 });
 
 router.put("/:id", (req, res, next) => {
+  logger.info(req.originalUrl);
   let sources = newsDetails[0].sources;
   const singleNews = sources.find(c => c.id === req.params.id);
 
