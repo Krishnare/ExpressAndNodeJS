@@ -36,13 +36,6 @@ router.put("/:id", (req, res, next) => {
   req.body.name ? singleNews.name = req.body.name : "";
   req.body.id ? singleNews.id = req.body.id : "";
 
-  if (!req.body.name || !req.body.id) {
-    console.log("Nothing");
-  } else {
-    singleNews.id = req.body.id;
-    singleNews.name = req.body.name;
-  }
-
   res.status(200).json({
     massage: "Handling Put Request",
     singleNews: singleNews
@@ -55,9 +48,9 @@ router.delete("/:id", (req, res, next) => {
   const singleNews = sources.find(c => c.id === req.params.id);
   const indexVal = sources.indexOf(singleNews);
   sources.splice(indexVal, 1);
-  if (singleNews.id.length < 3) {
-    sources = singleNews;
-  }
+  
+  singleNews.id.length ? sources = singleNews : sources;
+
   res.status(200).json({
     massage: `Handling Delete Request ${req.params.id}`,
     sources: sources
