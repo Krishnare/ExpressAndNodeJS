@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const morgan = require("morgan");
+const logger = require("./createLoggFiles/createLogg");
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,7 +27,8 @@ app.use((error, req, res, next) => {
   });
 });
 
-const port = process.env.PORT || 3000;
+
+const port = process.env.PORT || 6000;
 app.listen(port, () => {
-  console.log(`Application is listening on port ${port}...`);
+  logger.info(`Application is listening on port, ${port}...`);
 });

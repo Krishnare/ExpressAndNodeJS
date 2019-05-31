@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const logger = require("../createLoggFiles/createLogg");
 
 let fs = require("fs");
 const newsJson = eval(fs.readFileSync("newsJson.js") + "");
@@ -46,6 +47,7 @@ router.put("/:id", (req, res, next) => {
 });
 
 router.delete("/:id", (req, res, next) => {
+  logger.info(req.originalUrl);
   let sources = newsDetails[0].sources;
   const singleNews = sources.find(c => c.id === req.params.id);
   const indexVal = sources.indexOf(singleNews);
@@ -57,6 +59,9 @@ router.delete("/:id", (req, res, next) => {
     massage: `Handling Delete Request ${req.params.id}`,
     sources: sources
   });
+  
 });
+
+
 
 module.exports = router;
