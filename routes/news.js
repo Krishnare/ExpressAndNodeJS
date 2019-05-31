@@ -19,12 +19,9 @@ router.post("/:id", (req, res, next) => {
   const sources = newsDetails[0].sources;
   const singleNews = sources.find(c => c.id === req.params.id);
 
-  if (!req.body.name || !req.body.id) {
-    console.log("nothing");
-  } else {
-    singleNews.id = req.body.id;
-    singleNews.name = req.body.name;
-  }
+  req.body.name ? singleNews.name = req.body.name : "";
+  req.body.id ? singleNews.id = req.body.id : "";
+
   res.status(201).json({
     massage: "Handling Post Request",
     someObj: singleNews
@@ -35,6 +32,9 @@ router.put("/:id", (req, res, next) => {
   logger.info(req.originalUrl);
   let sources = newsDetails[0].sources;
   const singleNews = sources.find(c => c.id === req.params.id);
+
+  req.body.name ? singleNews.name = req.body.name : "";
+  req.body.id ? singleNews.id = req.body.id : "";
 
   if (!req.body.name || !req.body.id) {
     console.log("Nothing");
@@ -62,9 +62,6 @@ router.delete("/:id", (req, res, next) => {
     massage: `Handling Delete Request ${req.params.id}`,
     sources: sources
   });
-  
 });
-
-
 
 module.exports = router;
